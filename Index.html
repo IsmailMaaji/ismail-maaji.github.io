@@ -253,15 +253,21 @@ section{padding:100px 64px}
 .si-lb{font-family:var(--fm);font-size:.58rem;letter-spacing:.1em;color:var(--muted);text-align:center;padding:0 14px}
 
 #experience{background:var(--bg)}
-.eg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}
-.ec{padding:44px 40px;border-right:1px solid var(--line);transition:background .2s}
-.ec:last-child{border-right:none}
-.ec:hover{background:var(--bg)}
+.eg{display:flex;gap:22px;overflow-x:auto;padding-bottom:18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+.eg::-webkit-scrollbar{height:10px}
+.eg::-webkit-scrollbar-track{background:transparent}
+.eg::-webkit-scrollbar-thumb{background:rgba(203,41,87,.35);border-radius:999px}
+.ec{padding:44px 40px;min-width:min(92%,420px);flex:0 0 min(92%,420px);scroll-snap-align:start;background:var(--bg2);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 40px rgba(0,0,0,.12);transition:transform .3s,background .2s}
+.ec:hover{transform:translateY(-6px);background:rgba(203,41,87,.03)}
 .ec-r{font-family:var(--ff);font-size:1.5rem;font-weight:700;color:var(--ink);margin-bottom:6px}
 .ec-c{font-family:var(--fm);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:10px}
 .ec-c::after{content:'';flex:1;height:1px;background:var(--line)}
+.ec-link{margin-top:16px}
+.ec-link a{color:var(--accent);text-decoration:none;transition:color .2s}
+.ec-link a:hover{color:var(--white)}
+.ec-location{margin-top:8px;color:var(--muted);font-family:var(--fm);font-size:.82rem;letter-spacing:.08em;display:block}
 .ec-l{list-style:none}
-.ec-l li{font-size:.88rem;color:var(--muted);padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);display:flex;gap:10px;align-items:flex-start;line-height:1.6}
+.ec-l li{font-size:.88rem;color:var(--muted);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:10px;align-items:flex-start;line-height:1.6}
 .ec-l li::before{content:'→';color:var(--accent);flex-shrink:0}
 
 #contact{background:var(--bg)}
@@ -561,6 +567,18 @@ My journey from Data Analytics to Game Development has given me a unique perspec
 <section id="experience">
   <div class="sh rv"><span class="sn">07</span><div class="sl"></div><h2 class="st">Work <b>Experience</b></h2></div>
   <div class="eg">
+    <div class="ec rv d2">
+      <div class="ec-r">3D Generalist</div>
+      <div class="ec-c">Personal Projects · Freelance · Jan 2026 - Present</div>
+      <ul class="ec-l">
+        <li>Created environment art in Unreal Engine 5 and Blender</li>
+        <li>Designed levels and immersive worlds for stylized and realistic projects</li>
+        <li>Produced assets, lighting setups, and cinematic renders</li>
+        <li>Explored realistic and stylized art styles across freelance work</li>
+      </ul>
+      <div class="ec-c ec-link"><a href="https://www.linkedin.com/in/ismail-maaji-4022b4214/overlay/2934227144/skill-associations-details/" target="_blank">3D Modeling, 3D Rendering and +3 skills</a></div>
+      <div class="ec-c ec-location">Casablanca-Settat, Morocco · Remote</div>
+    </div>
     <div class="ec rv">
       <div class="ec-r">Data Analyst</div>
       <div class="ec-c">IMS</div>

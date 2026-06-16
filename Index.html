@@ -224,22 +224,6 @@ section{padding:100px 64px}
   .modal-close{top:12px;right:12px;width:36px;height:36px;font-size:1.2rem}
 }
 
-#analytics{background:var(--bg)}
-.dg{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
-.dc{display:flex;flex-direction:column;gap:18px;padding:0;border:none;border-radius:28px;overflow:hidden;background:var(--bg2);box-shadow:0 20px 50px rgba(0,0,0,.2);transition:transform .3s,border-color .2s}
-.dc:hover{transform:translateY(-5px)}
-.d-img{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--line)}
-.d-img img{width:100%;height:100%;object-fit:cover;display:block}
-.d-tag{position:absolute;bottom:18px;left:18px;padding:8px 14px;background:rgba(0,0,0,.55);color:#fff;font-family:var(--fm);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;border-radius:999px}
-.d-info{padding:24px;display:flex;flex-direction:column;gap:14px}
-.d-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.di{width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border-radius:14px;background:rgba(203,41,87,.12);color:var(--accent);flex-shrink:0}
-.dt{font-family:var(--ff);font-size:1.35rem;font-weight:800;color:var(--ink);line-height:1.1;margin-bottom:0}
-.dd{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:100%}
-.d-tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
-.d-t,.tag{padding:7px 12px;background:rgba(203,41,87,.12);border:1px solid rgba(203,41,87,.2);border-radius:999px;font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
-@media(max-width:900px){.dc{padding:0}.d-info{padding:20px}}
-
 
 #design{padding:80px 0;background:var(--bg)}
 .ds-head{padding:0 64px;margin-bottom:32px}
@@ -253,21 +237,15 @@ section{padding:100px 64px}
 .si-lb{font-family:var(--fm);font-size:.58rem;letter-spacing:.1em;color:var(--muted);text-align:center;padding:0 14px}
 
 #experience{background:var(--bg)}
-.eg{display:flex;gap:22px;overflow-x:auto;padding-bottom:18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
-.eg::-webkit-scrollbar{height:10px}
-.eg::-webkit-scrollbar-track{background:transparent}
-.eg::-webkit-scrollbar-thumb{background:rgba(203,41,87,.35);border-radius:999px}
-.ec{padding:44px 40px;min-width:min(92%,420px);flex:0 0 min(92%,420px);scroll-snap-align:start;background:var(--bg2);border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 40px rgba(0,0,0,.12);transition:transform .3s,background .2s}
-.ec:hover{transform:translateY(-6px);background:rgba(203,41,87,.03)}
+.eg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}
+.ec{padding:44px 40px;border-right:1px solid var(--line);transition:background .2s}
+.ec:last-child{border-right:none}
+.ec:hover{background:var(--bg)}
 .ec-r{font-family:var(--ff);font-size:1.5rem;font-weight:700;color:var(--ink);margin-bottom:6px}
 .ec-c{font-family:var(--fm);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:10px}
 .ec-c::after{content:'';flex:1;height:1px;background:var(--line)}
-.ec-link{margin-top:16px}
-.ec-link a{color:var(--accent);text-decoration:none;transition:color .2s}
-.ec-link a:hover{color:var(--white)}
-.ec-location{margin-top:8px;color:var(--muted);font-family:var(--fm);font-size:.82rem;letter-spacing:.08em;display:block}
 .ec-l{list-style:none}
-.ec-l li{font-size:.88rem;color:var(--muted);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:10px;align-items:flex-start;line-height:1.6}
+.ec-l li{font-size:.88rem;color:var(--muted);padding:7px 0;border-bottom:1px solid rgba(0,0,0,.04);display:flex;gap:10px;align-items:flex-start;line-height:1.6}
 .ec-l li::before{content:'→';color:var(--accent);flex-shrink:0}
 
 #contact{background:var(--bg)}
@@ -349,7 +327,6 @@ footer{padding:32px 64px;border-top:1px solid var(--line);background:var(--bg);d
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#art">3D Art</a>
-    <a href="#analytics">Data</a>
     <a href="#experience">Experience</a>
     <a href="#contact" class="n-cta">Hire Me</a>
     <button class="ham" id="ham"><span></span><span></span><span></span></button>
@@ -360,7 +337,6 @@ footer{padding:32px 64px;border-top:1px solid var(--line);background:var(--bg);d
   <a href="#skills">Skills</a>
   <a href="#projects">Projects</a>
   <a href="#art">3D Art</a>
-  <a href="#analytics">Data</a>
   <a href="#experience">Experience</a>
   <a href="#contact">Contact</a>
 </div>
@@ -514,32 +490,6 @@ My journey from Data Analytics to Game Development has given me a unique perspec
   </div>
 </div>
 
-<section id="analytics">
-  <div class="sh rv"><span class="sn">05</span><div class="sl"></div><h2 class="st">Data <b>Analytics</b></h2></div>
-  <p class="analytics-sub">Visual analytics cards with bold imagery and easy-to-scan project outcomes.</p>
-  <div class="dg">
-    <div class="dc rv">
-      <div class="d-img"><img src="Images/data analyst images/1_fmaBh83wcESRzlcnnt-ldA.png" alt="Car Sales Dashboard"></div>
-      <div class="d-info">
-        
-        <div class="dt">Car Sales Analysis Morocco</div>
-        <p class="dd">Built clean dashboards to reveal market trends, pricing patterns, and buyer behavior across Morocco’s regions.</p>
-        <div class="d-tools"><span class="d-t">Excel</span><span class="d-t">Power BI</span><span class="d-t">SQL</span></div>
-      </div>
-    </div>
-    
-    <div class="dc rv">
-      <div class="d-img"><img src="Images/data analyst images/image.png" alt="Video Games Insights"></div>
-      <div class="d-info">
-        
-        <div class="dt">Popular Video Games Study</div>
-        <p class="dd">Summarized decades of gaming industry data into simple insights on genre shifts, platform growth, and audience preferences.</p>
-        <div class="d-tools"><span class="d-t">Python</span><span class="d-t">SQL</span><span class="d-t">Power BI</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="design">
   <div class="sh ds-head rv"><span class="sn">06</span><div class="sl"></div><h2 class="st">Logo & UI <b>Design</b></h2></div>
   <div class="strip-w rv">
@@ -576,8 +526,8 @@ My journey from Data Analytics to Game Development has given me a unique perspec
         <li>Produced assets, lighting setups, and cinematic renders</li>
         <li>Explored realistic and stylized art styles across freelance work</li>
       </ul>
-      <div class="ec-c ec-link"><a href="https://www.linkedin.com/in/ismail-maaji-4022b4214/overlay/2934227144/skill-associations-details/" target="_blank">3D Modeling, 3D Rendering and +3 skills</a></div>
-      <div class="ec-c ec-location">Casablanca-Settat, Morocco · Remote</div>
+      <div class="ec-c" style="margin-top:16px"><a href="https://www.linkedin.com/in/ismail-maaji-4022b4214/overlay/2934227144/skill-associations-details/" target="_blank" style="color:var(--accent);text-decoration:none;">3D Modeling, 3D Rendering and +3 skills</a></div>
+      <div class="ec-c" style="margin-top:8px;color:var(--muted);font-family:var(--fm);font-size:.82rem;letter-spacing:.08em;">Casablanca-Settat, Morocco · Remote</div>
     </div>
     <div class="ec rv">
       <div class="ec-r">Data Analyst</div>

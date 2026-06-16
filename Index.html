@@ -237,9 +237,8 @@ section{padding:100px 64px}
 .si-lb{font-family:var(--fm);font-size:.58rem;letter-spacing:.1em;color:var(--muted);text-align:center;padding:0 14px}
 
 #experience{background:var(--bg)}
-.eg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}
-.ec{padding:44px 40px;border-right:1px solid var(--line);transition:background .2s}
-.ec:last-child{border-right:none}
+.eg{display:grid;grid-template-columns:1fr;border:1px solid var(--line)}
+.ec{padding:44px 40px;transition:background .2s}
 .ec:hover{background:var(--bg)}
 .ec-r{font-family:var(--ff);font-size:1.5rem;font-weight:700;color:var(--ink);margin-bottom:6px}
 .ec-c{font-family:var(--fm);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:10px}
@@ -886,15 +885,16 @@ document.getElementById('galModal').addEventListener('click',e=>{
 });
 
 document.addEventListener('keydown',e=>{
-  if(!document.getElementById('galModal').classList.contains('open'))return;
-  if(e.key==='ArrowRight')nextGalleryImage();
-  if(e.key==='ArrowLeft')prevGalleryImage();
-  if(e.key==='Escape')closeGalleryModal();
+  if(document.getElementById('galModal').classList.contains('open')){
+    if(e.key==='ArrowRight')nextGalleryImage();
+    if(e.key==='ArrowLeft')prevGalleryImage();
+    if(e.key==='Escape')closeGalleryModal();
+  }
 });
 
 renderGallery('all');
 
-function send(){const n=document.getElementById('fn').value,e=document.getElementById('fe').value,m=document.getElementById('fm').value;if(!n||!e||!m){alert('Please fill all fields.');return}window.open('mailto:maajiismail2000@gmail.com?subject=Portfolio Contact from '+encodeURIComponent(n)+'&body='+encodeURIComponent('From: '+n+'\nEmail: '+e+'\n\n'+m));document.getElementById('fok').style.display='block';document.getElementById('fn').value='';document.getElementById('fe').value='';document.getElementById('fm').value='';setTimeout(()=>document.getElementById('fok').style.display='none',5000)}
+function send(){const n=document.getElementById('fn').value,e=document.getElementById('fe').value,m=document.getElementById('fm').value;if(!n||!e||!m){alert('Please fill all fields.');return}window.open('mailto:maajiismail2000@gmail?subject=Portfolio Contact from '+encodeURIComponent(n)+'&body='+encodeURIComponent('From: '+n+'\nEmail: '+e+'\n\n'+m));document.getElementById('fok').style.display='block';document.getElementById('fn').value='';document.getElementById('fe').value='';document.getElementById('fm').value='';setTimeout(()=>document.getElementById('fok').style.display='none',5000)}
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('mnav').classList.remove('open')}}));
 </script>
 </body>

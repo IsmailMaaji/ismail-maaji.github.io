@@ -10,22 +10,22 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0a0a;
+  --bg:#000000;
   --bg2:#111111;
-  --bg3:#161616;
-  --line:#222;
+  --bg3:#1a1a1a;
+  --line:#222222;
   --line2:#2e2e2e;
-  --text:#f0ede8;
-  --muted:#7a7775;
-  --accent:#e8ddd0;
+  --text:#ffffff;
+  --muted:#bbbbbb;
+  --accent:#cb2957;
   --orange:#c8502a;
   --ff:'Space Grotesk',sans-serif;
   --fb:'Inter',sans-serif;
   --radius:12px;
   --ink:var(--text);
-  --ink2:#bfb6ad;
+  --ink2:#eeeeee;
   --white:#ffffff;
-  --accent2:rgba(232,221,208,0.6);
+  --accent2:rgba(203,41,87,.35);
   --fm:'JetBrains Mono',monospace;
 }
 *,*::before,*::after{border-radius:var(--radius)}
@@ -154,10 +154,10 @@ section{padding:100px 64px}
 .pj-name{font-family:var(--ff);font-size:clamp(2rem,3.5vw,3rem);font-weight:800;color:var(--ink);line-height:.95;margin-bottom:10px;letter-spacing:-.01em}
 .pj-role{font-family:var(--fm);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
 .pj-de{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:24px}
-.pj-lbl{font-family:var(--fm);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;opacity:.6}
+
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
-.chip{padding:4px 11px;font-family:var(--fm);font-size:.58rem;letter-spacing:.06em}
-.chip-t{background:rgba(45,160,150,.07);border:1px solid rgba(45,160,150,.2);color:rgb(30,130,120)}
+.chip{padding:4px 11px;font-family:var(--fm);font-size:.58rem;letter-spacing:.06em;border-radius:999px}
+.chip-t,.tag{background:rgba(203,41,87,.12);border:1px solid rgba(203,41,87,.2);color:var(--accent)}
 .chip-l{background:transparent;border:1px solid var(--line);color:var(--muted)}
 
 #art{background:var(--bg)}
@@ -200,6 +200,8 @@ section{padding:100px 64px}
 .modal-text{font-size:.9rem;color:var(--muted);line-height:1.8}
 .modal-tools{display:flex;flex-wrap:wrap;gap:8px}
 .modal-tool{padding:6px 12px;background:rgba(203,41,87,.1);border:1px solid rgba(203,41,87,.2);border-radius:4px;font-family:var(--fm);font-size:.55rem;letter-spacing:.08em;color:var(--accent);text-transform:uppercase}
+.modal-meta-label{font-family:var(--fm);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.thumb-empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--text);font-size:24px}
 
 .modal-nav{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:24px;background:rgba(255,255,255,.05);backdrop-filter:blur(10px);padding:16px 24px;border-radius:50px;border:1px solid rgba(255,255,255,.1)}
 .modal-counter{font-family:var(--fm);font-size:.7rem;letter-spacing:.15em;color:#fff;text-transform:uppercase;min-width:60px;text-align:center}
@@ -210,8 +212,8 @@ section{padding:100px 64px}
 .gallery-thumbnails::-webkit-scrollbar{height:4px}
 .gallery-thumbnails::-webkit-scrollbar-track{background:transparent}
 .gallery-thumbnails::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
-.thumb{width:80px;height:80px;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .2s;flex-shrink:0}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb{width:80px;height:80px;border-radius:12px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .2s;flex-shrink:0}
+.thumb-img{width:100%;height:100%;object-fit:cover;display:block}
 .thumb.active{border-color:var(--accent);box-shadow:0 0 12px rgba(203,41,87,.4)}
 .thumb:hover{transform:scale(1.05)}
 
@@ -235,7 +237,7 @@ section{padding:100px 64px}
 .dt{font-family:var(--ff);font-size:1.35rem;font-weight:800;color:var(--ink);line-height:1.1;margin-bottom:0}
 .dd{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:100%}
 .d-tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
-.d-t{padding:7px 12px;background:rgba(203,41,87,.12);border:1px solid rgba(203,41,87,.2);border-radius:999px;font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
+.d-t,.tag{padding:7px 12px;background:rgba(203,41,87,.12);border:1px solid rgba(203,41,87,.2);border-radius:999px;font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
 @media(max-width:900px){.dc{padding:0}.d-info{padding:20px}}
 
 
@@ -443,9 +445,7 @@ My journey from Data Analytics to Game Development has given me a unique perspec
         <div class="pj-name">Aquen<br>Last Hope</div>
         <div class="pj-role">Game Designer · 3D Artist · Environment Designer</div>
         <p class="pj-de">A fantasy RPG where players embody a Water Slime on a journey to become the True Spirit King through strategic combat and flexible skill combinations.</p>
-        <div class="pj-lbl">Responsibilities</div>
-        <div class="chips"><span class="chip chip-t">Visual Identity</span><span class="chip chip-t">Artistic Direction</span><span class="chip chip-t">Environment Design</span><span class="chip chip-t">UI Design</span><span class="chip chip-t">Asset Creation</span><span class="chip chip-t">Mage</span></div>
-        <div class="chips"><span class="chip chip-l">Unity</span><span class="chip chip-l">Blender</span><span class="chip chip-l">Figma</span><span class="chip chip-l">GitHub</span><span class="chip chip-l">Photoshop</span><span class="chip chip-l">Aseprite</span></div>
+        <div class="chips"><span class="chip chip-t">Unity</span><span class="chip chip-t">Blender</span><span class="chip chip-t">Figma</span><span class="chip chip-t">GitHub</span><span class="chip chip-t">Photoshop</span><span class="chip chip-t">Aseprite</span></div>
       </div>
     </div>
     <div class="pj rev rv">
@@ -454,9 +454,7 @@ My journey from Data Analytics to Game Development has given me a unique perspec
         <div class="pj-name">Geeks<br>Hub</div>
         <div class="pj-role">Game Designer · Producer · Environment Artist</div>
         <p class="pj-de">A first-person simulation game where players experience student life while balancing assignments, job hunting, and daily responsibilities.</p>
-        <div class="pj-lbl">Responsibilities</div>
-        <div class="chips"><span class="chip chip-t">Environment Design</span><span class="chip chip-t">UI Design</span><span class="chip chip-t">Gameplay Structure</span><span class="chip chip-t">Project Coordination</span></div>
-        <div class="chips"><span class="chip chip-l">Unity</span><span class="chip chip-l">Blender</span><span class="chip chip-l">Figma</span><span class="chip chip-l">GitHub</span><span class="chip chip-l">Photoshop</span><span class="chip chip-l">Aseprite</span></div>
+        <div class="chips"><span class="chip chip-t">Unity</span><span class="chip chip-t">Blender</span><span class="chip chip-t">Figma</span><span class="chip chip-t">GitHub</span><span class="chip chip-t">Photoshop</span><span class="chip chip-t">Aseprite</span></div>
       </div>
       <div class="pj-vis">
         <img class="pj-img" src="Images/geeksHub.png" alt="Geeks Hub project image">
@@ -496,7 +494,7 @@ My journey from Data Analytics to Game Development has given me a unique perspec
         </div>
         <p class="modal-text" id="modalDesc"></p>
         <div>
-          <div style="font-family:var(--fm);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Tools Used</div>
+          <div class="modal-meta-label">Tools Used</div>
           <div class="modal-tools" id="modalTools"></div>
         </div>
         <div class="modal-nav">
@@ -536,8 +534,8 @@ My journey from Data Analytics to Game Development has given me a unique perspec
   </div>
 </section>
 
-<section id="design" style="padding:80px 0">
-  <div class="sh ds-head rv" style="margin-bottom:32px"><span class="sn">06</span><div class="sl"></div><h2 class="st">Logo & UI <b>Design</b></h2></div>
+<section id="design">
+  <div class="sh ds-head rv"><span class="sn">06</span><div class="sl"></div><h2 class="st">Logo & UI <b>Design</b></h2></div>
   <div class="strip-w rv">
     <div class="strip">
       <div class="si"><div class="si-ic">🏆</div><div class="si-lb">Hackathon Brand</div></div>
@@ -760,7 +758,6 @@ function renderGallery(filter='all'){
     card.innerHTML=`
       <div class="gal-img-wrap">
         <img src="${proj.images[0]}" alt="${proj.title}">
-        <div class="gal-badge">${proj.category}</div>
         ${proj.images.length>1?`<div class="gal-count">${proj.images.length}</div>`:''}
       </div>
       <div class="gal-info">
@@ -845,9 +842,9 @@ function renderThumbnails(proj){
     thumb.className='thumb'+(idx===0?' active':'');
     const isVideo=/\.(mp4|webm|mov|avi|mkv)$/i.test(media);
     if(isVideo){
-      thumb.innerHTML=`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;font-size:24px">🎬</div>`;
+      thumb.innerHTML=`<div class="thumb-empty">🎬</div>`;
     }else{
-      thumb.innerHTML=`<img src="${media}" alt="Thumbnail ${idx+1}" style="width:100%;height:100%;object-fit:cover;display:block">`;
+      thumb.innerHTML=`<img class="thumb-img" src="${media}" alt="Thumbnail ${idx+1}">`;
     }
     thumb.addEventListener('click',()=>switchImage(idx));
     thumbContainer.appendChild(thumb);

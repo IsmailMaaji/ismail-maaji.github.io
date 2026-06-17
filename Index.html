@@ -1124,7 +1124,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
     ctx.beginPath();
     ctx.arc(0, 0, size * 1.2, 0, Math.PI * 2);
     ctx.fillStyle = rg;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 40 * glow;
     ctx.fill();
+    ctx.shadowBlur = 0;
 
     ctx.beginPath();
     ctx.arc(0, 0, size * 0.75, 0, Math.PI * 2);
@@ -1147,8 +1150,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
   ctx.lineWidth = 1.5;
   ctx.stroke();
 
-  var isize = Math.round(half * 10);
-  isize = Math.max(64, Math.min(isize, 110));
+  var isize = Math.round(half * 2.4);
+  isize = Math.max(60, Math.min(isize, 200));
 
   if (img && img.complete && img.naturalWidth > 0) {
     ctx.imageSmoothingEnabled = true;
@@ -1181,7 +1184,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
     ctx.clearRect(0,0,W,H);
 
     var bg=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*0.65);
-    bg.addColorStop(0,'#111');bg.addColorStop(1,'#000');
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, W, H);
     ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
 
     var ph=ctx.createRadialGradient(cx,cy,0,cx,cy,W*0.32);

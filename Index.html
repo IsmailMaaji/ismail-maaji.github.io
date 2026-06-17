@@ -1147,12 +1147,13 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
   ctx.lineWidth = 1.5;
   ctx.stroke();
 
-  var isize = Math.max(28, Math.min(Math.round(half * 1.52), 96));
+  var isize = Math.round(half * 10);
+  isize = Math.max(64, Math.min(isize, 110));
 
   if (img && img.complete && img.naturalWidth > 0) {
     ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, -isize / 2, -isize / 2, isize, isize);
+    ctx.imageSmoothingQuality = "high";
+     ctx.drawImage(img,-isize/2,-isize/2,isize,isize);
   } else {
     ctx.beginPath();
     ctx.arc(0, 0, half * 0.54, 0, Math.PI * 2);

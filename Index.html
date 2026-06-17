@@ -402,12 +402,29 @@ Whether I’m creating stylized worlds in Blender, designing levels in Unreal En
 <section id="skills">
 
   <div class="sh rv"><span class="sn">02</span><div class="sl"></div><h2 class="st">Technical <b>Skills</b></h2></div>
-  <div class="sk-grid">
-    <div class="skc rv"><div class="sk-n">Game Development</div><div class="sk-tags"><span class="sk-t">Unity</span><span class="sk-t">Unreal Engine</span><span class="sk-t">Blender</span><span class="sk-t">Game Design</span><span class="sk-t">Level Design</span></div></div>
-    <div class="skc rv d1"><div class="sk-n">Data Analytics</div><div class="sk-tags"><span class="sk-t">SQL</span><span class="sk-t">Python</span><span class="sk-t">Power BI</span><span class="sk-t">Excel</span><span class="sk-t">Data Visualization</span></div></div>
-    <div class="skc rv d2"><div class="sk-n">Design</div><div class="sk-tags"><span class="sk-t">Photoshop</span><span class="sk-t">Figma</span><span class="sk-t">Aseprite</span><span class="sk-t">UI/UX</span><span class="sk-t">Logo Design</span></div></div>
-    <div class="skc rv d3"><div class="sk-n">Development</div><div class="sk-tags"><span class="sk-t">Java</span><span class="sk-t">JavaScript</span><span class="sk-t">PHP</span><span class="sk-t">MySQL</span><span class="sk-t">REST APIs</span><span class="sk-t">Git</span></div></div>
+ <div class="skills-wrap rv" style="display:flex;align-items:center;gap:32px;max-width:1200px;margin:0 auto;flex-wrap:wrap;">
+
+  <div style="flex:0 0 220px;min-width:160px;">
+    <div style="font-family:var(--ff);font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:12px;">
+      Software &amp; Tools
+    </div>
+    <p style="color:rgba(187,187,187,0.7);font-family:var(--fm);font-size:.62rem;letter-spacing:.08em;line-height:1.7;margin-bottom:24px;">
+      Hover a logo to inspect it.<br>The ring rotates automatically.
+    </p>
+    <div id="hoveredLabel" style="
+      font-family:var(--fm);font-size:.7rem;letter-spacing:.18em;
+      text-transform:uppercase;color:#ff2d75;
+      padding:6px 14px;border:1px solid rgba(255,45,117,.3);
+      border-radius:4px;background:rgba(255,45,117,.06);
+      display:none;
+    "></div>
   </div>
+
+  <div style="flex:1;min-width:280px;position:relative;">
+    <canvas id="skillsCanvas3D" style="display:block;border-radius:12px;cursor:crosshair;background:#000;width:100%;"></canvas>
+  </div>
+
+</div>
 </section>
 
 <section id="projects">
@@ -611,19 +628,19 @@ Whether I’m creating stylized worlds in Blender, designing levels in Unreal En
   <div class="ft">Casablanca, Morocco</div>
 </footer>
 
-<script type="module">
-import * as THREE from 'https://unpkg.com/three@0.154.0/build/three.module.js';
-import { EffectComposer } from 'https://unpkg.com/three@0.154.0/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'https://unpkg.com/three@0.154.0/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'https://unpkg.com/three@0.154.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+<script src="https://unpkg.com/three@r170/build/three.min.js"></script>
 
-// 3D software carousel (Three.js)
-const canvas = document.getElementById('skillsCanvas');
-if(canvas){
+<script>
+// 3D software carousel using Three.js UMD build
+window.addEventListener('DOMContentLoaded', ()=>{
+  const canvas = document.getElementById('skillsCanvas');
+  if(!canvas) return;
+  
   const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setClearColor(0x000000);
+  
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x000000);
   const camera = new THREE.PerspectiveCamera(40,1,0.1,3000);
   camera.position.set(0,0,600);
 
@@ -633,20 +650,15 @@ if(canvas){
   dir.position.set(100,100,100);
   scene.add(dir);
 
-  const composer = new EffectComposer(renderer);
-  composer.addPass(new RenderPass(scene, camera));
-  const bloomPass = new UnrealBloomPass(new THREE.Vector2(800,600), 0.9, 0.4, 0.9);
-  composer.addPass(bloomPass);
-
   const logos = [
-    {name:'Blender', src:'Images/icons/blender.png'},
-    {name:'Substance Painter', src:'Images/icons/substance.png'},
-    {name:'Unreal Engine 5', src:'Images/icons/unreal.png'},
-    {name:'Unity', src:'Images/icons/unity.png'},
-    {name:'Photoshop', src:'Images/icons/photoshop.png'},
-    {name:'Illustrator', src:'Images/icons/illustrator.png'},
-    {name:'Figma', src:'Images/icons/figma.png'},
-    {name:'DaVinci Resolve', src:'Images/icons/davinci.png'},
+    {name:'Blender', src:'icons/blender.png'},
+    {name:'Substance Painter', src:'icons/substance.png'},
+    {name:'Unreal Engine 5', src:'icons/unreal.png'},
+    {name:'Unity', src:'icons/unity.png'},
+    {name:'Photoshop', src:'icons/photoshop.png'},
+    {name:'Illustrator', src:'icons/illustrator.png'},
+    {name:'Figma', src:'icons/figma.png'},
+    {name:'DaVinci Resolve', src:'icons/davinci.png'},
   ];
 
   const loader = new THREE.TextureLoader();
@@ -662,18 +674,17 @@ if(canvas){
     const tex = loader.load(l.src);
     tex.minFilter = THREE.LinearFilter;
     const mat = new THREE.MeshBasicMaterial({map:tex, transparent:true, toneMapped:false});
-    mat.emissive = new THREE.Color(0x000000);
     const geo = new THREE.PlaneGeometry(planeW, planeH);
     const m = new THREE.Mesh(geo, mat);
     const ang = (i / logos.length) * Math.PI * 2;
     m.position.set(Math.cos(ang)*radius, (Math.random()-0.5)*18, Math.sin(ang)*radius);
     m.lookAt(0,0,0);
-    m.userData = { name: l.name, mat };
+    m.userData = {name: l.name};
     group.add(m);
     meshes.push(m);
   });
 
-  let hovered = null; let paused = false;
+  let hovered = null, paused = false;
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
 
@@ -690,44 +701,55 @@ if(canvas){
   canvas.addEventListener('pointermove', onPointerMove);
   canvas.addEventListener('pointerleave', ()=>{ hovered=null; paused=false; });
 
-  // animation
   const clock = new THREE.Clock();
   function render(){
-    const dt = clock.getDelta(); const t = clock.getElapsedTime();
+    const dt = clock.getDelta(), t = clock.getElapsedTime();
     if(!paused) group.rotation.y += dt * 0.25;
     group.position.y = Math.sin(t*0.7)*8;
+    
     meshes.forEach(m=>{
-      const target = (m===hovered)?1.18:1.0;
+      const target = (m===hovered) ? 1.18 : 1.0;
       m.scale.lerp(new THREE.Vector3(target,target,target), 0.08);
-      const em = m.userData.mat.emissive;
-      const targetCol = (m===hovered)? new THREE.Color(0xff2d75) : new THREE.Color(0x000000);
-      em.lerp(targetCol, 0.06);
+      if(m===hovered){
+        m.material.color.lerp(new THREE.Color(0xff2d75), 0.06);
+      } else {
+        m.material.color.lerp(new THREE.Color(0xffffff), 0.06);
+      }
     });
-    composer.render();
+    
+    renderer.render(scene, camera);
     requestAnimationFrame(render);
   }
 
-  // responsive
   function resize(){
-    const w = canvas.clientWidth || canvas.parentElement.clientWidth;
+    const w = canvas.clientWidth || 800;
     const h = canvas.clientHeight || 360;
     renderer.setSize(w, h, false);
-    composer.setSize(w, h);
-    camera.aspect = w/h; camera.updateProjectionMatrix();
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
   }
+  
   new ResizeObserver(resize).observe(canvas);
   resize();
   render();
 
-  // add accessible list of tools
+  // add text list overlay
   const skillsRight = document.querySelector('.skills-right');
   if(skillsRight){
-    const ul = document.createElement('ul'); ul.style.position='absolute'; ul.style.left='14px'; ul.style.bottom='12px'; ul.style.color='rgba(255,255,255,0.6)'; ul.style.fontFamily='var(--fm)'; ul.style.fontSize='0.85rem'; ul.style.listStyle='none'; ul.style.padding='0';
-    logos.forEach(l=>{ const li = document.createElement('li'); li.textContent = l.name; ul.appendChild(li); });
+    const ul = document.createElement('ul');
+    ul.style.cssText = 'position:absolute;left:14px;bottom:12px;color:rgba(255,255,255,0.6);font-family:var(--fm);font-size:0.85rem;list-style:none;padding:0;margin:0;';
+    logos.forEach(l=>{
+      const li = document.createElement('li');
+      li.textContent = l.name;
+      li.style.fontSize = '0.75rem';
+      ul.appendChild(li);
+    });
     skillsRight.appendChild(ul);
   }
-}
+});
 </script>
+
+
 
 <script>
 window.addEventListener('load',()=>setTimeout(()=>document.getElementById('ldr').classList.add('out'),2100));
@@ -1030,6 +1052,190 @@ renderGallery('all');
 
 function send(){const n=document.getElementById('fn').value,e=document.getElementById('fe').value,m=document.getElementById('fm').value;if(!n||!e||!m){alert('Please fill all fields.');return}window.open('mailto:maajiismail2000@gmail?subject=Portfolio Contact from '+encodeURIComponent(n)+'&body='+encodeURIComponent('From: '+n+'\nEmail: '+e+'\n\n'+m));document.getElementById('fok').style.display='block';document.getElementById('fn').value='';document.getElementById('fe').value='';document.getElementById('fm').value='';setTimeout(()=>document.getElementById('fok').style.display='none',5000)}
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('mnav').classList.remove('open')}}));
+</script>
+<script>
+(function(){
+  var SKILLS = [
+    {name:'Blender',           src:'icons/blender.png',     color:'#E87D0D'},
+    {name:'Substance Painter', src:'icons/substance.png',   color:'#FF6B35'},
+    {name:'Unreal Engine 5',   src:'icons/unreal.png',      color:'#1FD1F9'},
+    {name:'Unity',             src:'icons/unity.png',       color:'#CCCCCC'},
+    {name:'Photoshop',         src:'icons/photoshop.png',   color:'#31A8FF'},
+    {name:'Illustrator',       src:'icons/illustrator.png', color:'#FF9A00'},
+    {name:'Figma',             src:'icons/figma.png',       color:'#F24E1E'},
+    {name:'DaVinci Resolve',   src:'icons/davinci.png',     color:'#C8A84B'},
+  ];
+
+  var angle=0, hoveredIdx=-1, paused=false;
+  var scales=SKILLS.map(function(){return 1;});
+  var glows=SKILLS.map(function(){return 0;});
+  var mouseX=-9999, mouseY=-9999, lastTs=null;
+  var images=[];
+
+  var canvas=document.getElementById('skillsCanvas3D');
+  var label=document.getElementById('hoveredLabel');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+
+  SKILLS.forEach(function(s,i){
+       var img = new Image();
+  img.src = s.src;
+  img.onload = function(){
+    images[i] = img;
+  };
+  img.onerror = function(){
+    console.warn('Could not load:', s.src);
+  };
+  });
+
+  function resize(){
+    var parent=canvas.parentElement;
+    var w=parent?parent.clientWidth:700;
+    var h=Math.max(320,Math.min(w*0.52,420));
+    var dpr=window.devicePixelRatio||1;
+    canvas.width=w*dpr; canvas.height=h*dpr;
+    canvas.style.width=w+'px'; canvas.style.height=h+'px';
+  }
+  resize();
+  if(typeof ResizeObserver!=='undefined'){
+    new ResizeObserver(resize).observe(canvas.parentElement);
+  } else window.addEventListener('resize',resize);
+
+  canvas.addEventListener('pointermove',function(e){
+    var r=canvas.getBoundingClientRect();
+    var dpr=window.devicePixelRatio||1;
+    mouseX=(e.clientX-r.left)*dpr;
+    mouseY=(e.clientY-r.top)*dpr;
+  });
+  canvas.addEventListener('pointerleave',function(){
+    mouseX=-9999;mouseY=-9999;
+    hoveredIdx=-1;paused=false;
+    label.style.display='none';
+  });
+
+  function drawLogo(img, x, y, size, glow, color, name){
+  ctx.save();
+  ctx.translate(x, y);
+
+  if (glow > 0.02) {
+    var rg = ctx.createRadialGradient(0, 0, size * 0.3, 0, 0, size * 1.2);
+    rg.addColorStop(0, color + Math.round(glow * 70).toString(16).padStart(2, '0'));
+    rg.addColorStop(1, 'transparent');
+    ctx.beginPath();
+    ctx.arc(0, 0, size * 1.2, 0, Math.PI * 2);
+    ctx.fillStyle = rg;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(0, 0, size * 0.75, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,45,117,' + (glow * 0.95) + ')';
+    ctx.lineWidth = 2.5 * glow;
+    ctx.shadowColor = '#ff2d75';
+    ctx.shadowBlur = 22 * glow;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+
+  var half = size * 0.64;
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(-half, -half, half * 2, half * 2, 10);
+  else ctx.rect(-half, -half, half * 2, half * 2);
+
+  ctx.fillStyle = 'rgba(18,18,18,' + (0.72 + glow * 0.18) + ')';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,45,117,' + (0.14 + glow * 0.72) + ')';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  var isize = Math.max(28, Math.min(Math.round(half * 1.52), 96));
+
+  if (img && img.complete && img.naturalWidth > 0) {
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(img, -isize / 2, -isize / 2, isize, isize);
+  } else {
+    ctx.beginPath();
+    ctx.arc(0, 0, half * 0.54, 0, Math.PI * 2);
+    ctx.fillStyle = color + '28';
+    ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.fillStyle = color;
+    ctx.font = 'bold ' + Math.round(half * 0.62) + 'px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(name.charAt(0), 0, 1);
+  }
+
+  ctx.restore();
+} 
+
+  function tick(ts){
+    if(!lastTs)lastTs=ts;
+    var dt=Math.min((ts-lastTs)/1000,0.05);lastTs=ts;
+
+    var W=canvas.width,H=canvas.height,cx=W/2,cy=H/2;
+    ctx.clearRect(0,0,W,H);
+
+    var bg=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*0.65);
+    bg.addColorStop(0,'#111');bg.addColorStop(1,'#000');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+    var ph=ctx.createRadialGradient(cx,cy,0,cx,cy,W*0.32);
+    ph.addColorStop(0,'rgba(255,45,117,0.05)');ph.addColorStop(1,'transparent');
+    ctx.fillStyle=ph;ctx.fillRect(0,0,W,H);
+
+    if(!paused) angle+=dt*0.35;
+    var bob=Math.sin(ts/1400)*11;
+
+    var n=SKILLS.length;
+    var radiusX=Math.min(W*0.38,265);
+    var radiusY=radiusX*0.27;
+
+    var items=SKILLS.map(function(s,i){
+      var a=angle+(i/n)*Math.PI*2;
+      var zNorm=(Math.sin(a)+1)/2;
+      return{
+        i:i,
+        x:cx+Math.cos(a)*radiusX,
+        y:cy+bob+Math.sin(a)*radiusY-zNorm*18,
+        depth:zNorm,
+        baseSize:34+zNorm*22,
+        zNorm:zNorm
+      };
+    });
+
+    items.sort(function(a,b){return a.depth-b.depth;});
+
+    var newHov=-1;
+    items.forEach(function(it){
+      var r=it.baseSize*scales[it.i]*0.75;
+      var dx=mouseX-it.x,dy=mouseY-it.y;
+      if(dx*dx+dy*dy<r*r) newHov=it.i;
+    });
+
+    if(newHov!==hoveredIdx){
+      hoveredIdx=newHov; paused=newHov!==-1;
+      if(newHov!==-1){label.textContent=SKILLS[newHov].name;label.style.display='inline-block';}
+      else label.style.display='none';
+    }
+
+    for(var i=0;i<SKILLS.length;i++){
+      scales[i]+=((i===hoveredIdx?1.28:1.0)-scales[i])*0.10;
+      glows[i] +=((i===hoveredIdx?1.0 :0.0)-glows[i]) *0.08;
+    }
+
+    items.forEach(function(it){
+      ctx.globalAlpha=0.42+it.zNorm*0.58;
+      drawLogo(images[it.i],it.x,it.y,it.baseSize*scales[it.i],glows[it.i],SKILLS[it.i].color,SKILLS[it.i].name);
+    });
+    ctx.globalAlpha=1;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>
